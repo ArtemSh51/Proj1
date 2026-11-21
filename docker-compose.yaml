@@ -1,0 +1,29 @@
+services:
+    runner:
+        container_name: gitflic_mtuci_personal_6
+        image: registry.gitflic.ru/company/gitflic/runner:latest
+        environment:
+            DOCKER_REGISTRY_USERNAME: ""
+            DOCKER_REGISTRY_PASSWORD: ""
+            DOCKER_REGISTRY_URL: "https://registry.gitflic.mtuci.ru"
+            REG_URL: "https://gitflic.mtuci.ru/-/runner/registration"
+            REG_TOKEN: "a389a056-22cf-42ce-b981-39056b48f358"
+            NAME: "Personal"
+            TAGS: "barkov"
+            LOG_LEVEL: INFO
+            IN_SESSION: true
+            DIDENABLE: false
+            PRIVILEGED: false
+            CONCURRENCY_MODE: CUSTOM
+            LIMIT_OF_CONCURRENCY_TO_PROCESS_JOBS: 16
+        volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - runner-config:/gitflic-runner/config
+        - runner-log:/gitflic-runner/log
+        network_mode: host
+        restart: unless-stopped
+volumes:
+    runner-config:
+        name: runner-config
+    runner-log:
+        name: runner-log
